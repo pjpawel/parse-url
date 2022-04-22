@@ -60,15 +60,4 @@ class UrlParser
         return preg_replace('/^file:\/\/|^file:\/|^file:/', "file:///", $url, 1);
     }
 
-    /**
-     * @param string $url
-     * @param int $component
-     */
-    private static function parseOtherUrls(string $url, int $component): array
-    {
-
-
-        return [];
-    }
-
 }
