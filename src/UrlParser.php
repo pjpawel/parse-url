@@ -18,7 +18,7 @@ class UrlParser
      */
     public static function parse(string $url, int $component = -1): array
     {
-        if (preg_match('/^http(s)?:\/\/|^\/\/|^\/|^mailto:|^tel:/', $url, )) {
+        if (preg_match('/^http(s)?:\/\/|^\/\/|^\/|^mailto:|^tel:/', $url)) {
             return parse_url($url, $component);
         } elseif (preg_match('/^file/', $url)) {
             return self::parseFile($url, $component);
@@ -46,11 +46,7 @@ class UrlParser
     {
         if (preg_match('/^file:\/\/\//', $url)) {
             return parse_url($url, $component);
-        } elseif (preg_match('/^file:\/\//', $url)) {
-            return parse_url(self::correctFile($url), $component);
-        } elseif (preg_match('/^file:\//', $url)) {
-            return parse_url(self::correctFile($url), $component);
-        } elseif (preg_match('/^file:/', $url)) {
+        } elseif (preg_match('/^file:\/\/|^file:\/|^file:/', $url)) {
             return parse_url(self::correctFile($url), $component);
         } else {
             throw new ParseException('Incorrect file uri: missing :///');
@@ -65,7 +61,7 @@ class UrlParser
      * @return string
      */
     private static function correctFile(string $url): string
-    {;
+    {
         return preg_replace('/^file:\/\/|^file:\/|^file:/', "file:///", $url, 1);
     }
 
