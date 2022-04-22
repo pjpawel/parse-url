@@ -22,3 +22,4 @@ try {
     echo "Exception $e->getmessage()";
 }
 ```
+Output array is the same as [parse_url()](https://www.php.net/manual/en/function.parse-url.php)
