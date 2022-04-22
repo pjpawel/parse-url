@@ -4,7 +4,7 @@ namespace pjpawel;
 
 use pjpawel\Exceptions\ParseException;
 
-class Url
+class UrlParser
 {
 
     /**
@@ -15,18 +15,15 @@ class Url
      */
     public static function parse(string $url, int $component = -1): array
     {
-        if (preg_match('/^http(s)?:\/\/|^\/\//', $url, )) {
+        if (preg_match('/^http(s)?:\/\/|^\/\/|^\/|^mailto:|^tel:/', $url, )) {
             return parse_url($url, $component);
         } elseif (preg_match('/^file/', $url)) {
             return self::parseFile($url, $component);
+        } elseif (preg_match('/^(\S)+?\./', $url)) {
+            return parse_url("//" . $url, $component);
         } else {
-            /*
-             * mailto:
-             * tel:
-             * /cos/tam
-             *
-             */
             throw new ParseException('Incorrect url');
+            //return self::parseOtherUrls($url, $component);
         }
     }
 
@@ -41,25 +38,34 @@ class Url
         if (preg_match('/^file:\/\/\//', $url)) {
             return parse_url($url, $component);
         } elseif (preg_match('/^file:\/\//', $url)) {
-            return parse_url(self::correctFile($url, 1), $component);
+            return parse_url(self::correctFile($url), $component);
         } elseif (preg_match('/^file:\//', $url)) {
-            return parse_url(self::correctFile($url, 2), $component);
+            return parse_url(self::correctFile($url), $component);
         } elseif (preg_match('/^file:/', $url)) {
-            return parse_url(self::correctFile($url, 3), $component);
+            return parse_url(self::correctFile($url), $component);
         } else {
-            throw new ParseException('Incorrect file uri');
+            throw new ParseException('Incorrect file uri: missing :///');
         }
     }
 
     /**
      * @param string $url
-     * @param int $slashNumber
      * @return string
      */
-    private static function correctFile(string $url, int $slashNumber): string
-    {
-        $scheme = "file:";
-        $scheme .= str_repeat("/", $slashNumber);
-        return preg_replace('/^file:\/\/|^file:\/|^file:/', $scheme, $url, 1);
+    private static function correctFile(string $url): string
+    {;
+        return preg_replace('/^file:\/\/|^file:\/|^file:/', "file:///", $url, 1);
     }
+
+    /**
+     * @param string $url
+     * @param int $component
+     */
+    private static function parseOtherUrls(string $url, int $component): array
+    {
+
+
+        return [];
+    }
+
 }

@@ -4,7 +4,7 @@ namespace tests;
 
 use PHPUnit\Framework\TestCase;
 use pjpawel\Exceptions\ParseException;
-use pjpawel\Url;
+use pjpawel\UrlParser;
 
 class UrlTest extends TestCase
 {
@@ -14,18 +14,18 @@ class UrlTest extends TestCase
 
     public function testParseUrlWithScheme()
     {
-        $url = Url::parse('http://www.abc.pl/');
+        $url = UrlParser::parse('http://www.abc.pl/');
         $this->assertEquals('www.abc.pl', $url['host']);
     }
 
     public function testParseUrlWithSchemeHTTPS()
     {
-        $url = Url::parse('https://www.abc.pl/');
+        $url = UrlParser::parse('https://www.abc.pl/');
         $this->assertEquals('www.abc.pl', $url['host']);
     }
     public function testParseUrlWithSchemeBackSlashes()
     {
-        $url = Url::parse('//www.abc.pl/');
+        $url = UrlParser::parse('//www.abc.pl/');
         $this->assertEquals('www.abc.pl', $url['host']);
     }
 
@@ -35,25 +35,25 @@ class UrlTest extends TestCase
 
     public function testParseFile3BackSlashes()
     {
-        $url = Url::parse('file:///var/log/');
+        $url = UrlParser::parse('file:///var/log/');
         $this->assertEquals('/var/log/', $url['path']);
     }
 
     public function testParseFile2BackSlashes()
     {
-        $url = Url::parse('file://var/log/');
+        $url = UrlParser::parse('file://var/log/');
         $this->assertEquals('/var/log/', $url['path']);
     }
 
     public function testParseFile1BackSlashes()
     {
-        $url = Url::parse('file:/var/log/');
+        $url = UrlParser::parse('file:/var/log/');
         $this->assertEquals('/var/log/', $url['path']);
     }
 
     public function testParseFile0BackSlashes()
     {
-        $url = Url::parse('file:var/log/');
+        $url = UrlParser::parse('file:var/log/');
         $this->assertEquals('/var/log/', $url['path']);
     }
 
@@ -63,7 +63,7 @@ class UrlTest extends TestCase
 
     public function testParseUrlOnlyWWW()
     {
-        $this->expectException('pjpawel\Exceptions\ParseException');
-        Url::parse('');
+        $url = UrlParser::parse('https://www.abc.pl/');
+        $this->assertEquals('www.abc.pl', $url['host']);
     }
 }
