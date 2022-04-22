@@ -63,7 +63,13 @@ class UrlTest extends TestCase
 
     public function testParseUrlOnlyWWW()
     {
-        $url = UrlParser::parse('https://www.abc.pl/');
-        $this->assertEquals('www.abc.pl', $url['host']);
+        $url = UrlParser::parse('www.abc.com');
+        $this->assertEquals('www.abc.com', $url['host']);
+    }
+
+    public function testParseUrlWithoutWWW()
+    {
+        $url = UrlParser::parse('abc.com');
+        $this->assertEquals('abc.com', $url['host']);
     }
 }

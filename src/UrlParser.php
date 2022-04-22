@@ -22,8 +22,11 @@ class UrlParser
         } elseif (preg_match('/^(\S)+?\./', $url)) {
             return parse_url("//" . $url, $component);
         } else {
-            throw new ParseException('Incorrect url');
-            //return self::parseOtherUrls($url, $component);
+            $parse = parse_url($url, $component);
+            if ($parse === false) {
+                throw new ParseException('Incorrect url');
+            }
+            return $parse;
         }
     }
 
