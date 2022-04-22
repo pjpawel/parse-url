@@ -2,7 +2,7 @@
 
 namespace pjpawel\Exceptions;
 
-class ParseException
+class ParseException extends \Exception
 {
 
 }
