@@ -10,7 +10,7 @@ class UrlParser
     /**
      * Url parser that handles non-standard urls in which parser_url() gives wrong result
      * Where needed url is changed and parse by parse_url() function
-     * 
+     *
      * @param string $url
      * @param int $component default = -1
      * @return array
@@ -36,7 +36,7 @@ class UrlParser
     /**
      * For given url (file uri) corrects url if needed
      * and return parse_url() array
-     * 
+     *
      * @param string $url
      * @param int $component
      * @return array
@@ -56,7 +56,7 @@ class UrlParser
     /**
      * Change file://, file:/ or file: to file:///
      * at the beginning of url
-     * 
+     *
      * @param string $url
      * @return string
      */
