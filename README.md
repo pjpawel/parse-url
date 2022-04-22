@@ -8,5 +8,5 @@
 - [ ] Use :smile:
 
 ## Actual list of conversion
-*Comparison with parse_url()*
-(Conversions)[https://github.com/pjpawel/parse-url/blob/main/Conversions.md]
+*Comparison with parse_url()* ->
+[Conversions](../master/Conversions.md)
