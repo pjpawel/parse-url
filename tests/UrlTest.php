@@ -3,7 +3,6 @@
 namespace tests;
 
 use PHPUnit\Framework\TestCase;
-use pjpawel\Exceptions\ParseException;
 use pjpawel\UrlParser;
 
 class UrlTest extends TestCase
