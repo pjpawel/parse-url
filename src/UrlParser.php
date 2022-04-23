@@ -2,8 +2,6 @@
 
 namespace pjpawel;
 
-use pjpawel\Exceptions\ParseException;
-
 class UrlParser
 {
 
@@ -13,10 +11,9 @@ class UrlParser
      *
      * @param string $url
      * @param int $component default = -1
-     * @return array
-     * @throws ParseException
+     * @return array|false
      */
-    public static function parse(string $url, int $component = -1): array
+    public static function parse(string $url, int $component = -1)
     {
         if (preg_match('/^http(s)?:\/\/|^\/\/|^\/|^mailto:|^tel:/', $url)) {
             return parse_url($url, $component);
@@ -27,7 +24,7 @@ class UrlParser
         } else {
             $parse = parse_url($url, $component);
             if ($parse === false) {
-                throw new ParseException('Incorrect url');
+                return false;
             }
             return $parse;
         }
@@ -39,17 +36,16 @@ class UrlParser
      *
      * @param string $url
      * @param int $component
-     * @return array
-     * @throws ParseException
+     * @return array|false
      */
-    private static function parseFile(string $url, int $component): array
+    private static function parseFile(string $url, int $component)
     {
         if (preg_match('/^file:\/\/\//', $url)) {
             return parse_url($url, $component);
         } elseif (preg_match('/^file:\/\/|^file:\/|^file:/', $url)) {
             return parse_url(self::correctFile($url), $component);
         } else {
-            throw new ParseException('Incorrect file uri: missing :///');
+            return false;
         }
     }
 

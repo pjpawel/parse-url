@@ -71,4 +71,14 @@ class UrlTest extends TestCase
         $url = UrlParser::parse('abc.com');
         $this->assertEquals('abc.com', $url['host']);
     }
+
+    /*
+     * Unhandled cases
+     */
+
+    public function testParseUrlUnhandledCases()
+    {
+        $url = UrlParser::parse('.com');
+        $this->assertEquals(parse_url('.com'), $url);
+    }
 }
