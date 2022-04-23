@@ -15,15 +15,10 @@
 <?php
 
 use pjpawel\Url;
-use pjpawel\Exceptions\ParseException;
 
-$url = "www.malformed.url.com";
+$url = "www.malformed_url.com";
 
-try {
-    $parsedUrl = Url::parse($url);
-    var_dump($parsedUrl);
-} catch (ParseException $e) {
-    echo "Exception $e->getmessage()";
-}
+$parsedUrl = Url::parse($url);
+var_dump($parsedUrl);
 ```
 Output array is the same as [parse_url()](https://www.php.net/manual/en/function.parse-url.php)
