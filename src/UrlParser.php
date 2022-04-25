@@ -58,7 +58,7 @@ class UrlParser
     }
 
     /**
-     *
+     * Gives back the url from parse_url() or UrlParser::parse()
      *
      * @param array $parsedUrl
      * @return string
