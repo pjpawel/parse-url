@@ -7,6 +7,9 @@ use pjpawel\UrlParser;
 
 class UrlParserTest extends TestCase
 {
+    /**
+     * parse()
+     */
     /*
      * Urls with schema
      */
@@ -81,4 +84,42 @@ class UrlParserTest extends TestCase
         $url = UrlParser::parse('.com');
         $this->assertEquals(parse_url('.com'), $url);
     }
+
+    /**
+     * createUrl()
+     */
+
+    public function testCreateUrlExampleFromManual()
+    {
+        $url = 'http://username:password@hostname:9090/path?arg=value#anchor';
+        $parsedUrl = UrlParser::parse($url);
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $url);
+    }
+
+    public function testCreateUrlExampleWithoutPassword()
+    {
+        $url = 'http://username:@hostname:9090/path?arg=value#anchor';
+        $parsedUrl = UrlParser::parse($url);
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $url);
+    }
+
+    public function testCreateUrlExampleWithoutPassword2()
+    {
+        $url = 'http://parser:@php.net/path';
+        $parsedUrl = [
+            "scheme" => "http",
+            "host" => "php.net",
+            //"port" => "",
+            "user" => "parser",
+            //"pass" => "",
+            "path" => "/path",
+            //"query" => "",
+            //"fragment" => "",
+        ];
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $url);
+    }
+
 }

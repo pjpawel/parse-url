@@ -57,4 +57,48 @@ class UrlParser
         return preg_replace('/^file:\/\/|^file:\/|^file:/', "file:///", $url, 1);
     }
 
+    /**
+     *
+     *
+     * @param array $parsedUrl
+     * @return string
+     */
+    public static function createUrl(array $parsedUrl): string
+    {
+        $url = "";
+        $user = false;
+        if (isset($parsedUrl["scheme"])) {
+            if (preg_match('/^http/', $parsedUrl["scheme"])) {
+                $url .= $parsedUrl["scheme"] . "://";
+            } elseif (preg_match('/^file/', $parsedUrl["scheme"])) {
+                $url .= "file:///";
+            } else {
+                $url .= $parsedUrl["scheme"] . ":";
+            }
+        }
+        if (isset($parsedUrl["user"])) {
+            $user = true;
+            $password = $parsedUrl["pass"] ?? "";
+            $url .= $parsedUrl["user"] . ":" . $password;
+        }
+        if (isset($parsedUrl["host"])) {
+            if ($user) {
+                $url .= "@";
+            }
+            $url .= $parsedUrl["host"];
+        }
+        if (isset($parsedUrl["port"])) {
+            $url .= ":" . $parsedUrl["port"];
+        }
+        if (isset($parsedUrl["path"])) {
+            $url .= $parsedUrl["path"];
+        }
+        if (isset($parsedUrl["query"])) {
+            $url .= "?" . $parsedUrl["query"];
+        }
+        if (isset($parsedUrl["fragment"])) {
+            $url .= "#" . $parsedUrl["fragment"];
+        }
+        return $url;
+    }
 }
