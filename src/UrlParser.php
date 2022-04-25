@@ -22,11 +22,7 @@ class UrlParser
         } elseif (preg_match('/^(\S)+?\./', $url)) {
             return parse_url("//" . $url, $component);
         } else {
-            $parse = parse_url($url, $component);
-            if ($parse === false) {
-                return false;
-            }
-            return $parse;
+            return parse_url($url, $component);
         }
     }
 

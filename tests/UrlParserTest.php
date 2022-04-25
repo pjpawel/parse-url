@@ -5,7 +5,7 @@ namespace tests;
 use PHPUnit\Framework\TestCase;
 use pjpawel\UrlParser;
 
-class UrlTest extends TestCase
+class UrlParserTest extends TestCase
 {
     /*
      * Urls with schema
