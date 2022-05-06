@@ -5,6 +5,11 @@
 <!--[![Tests](https://github.com/pjpawel/parse-url)](https://github.com/pjpawel/parse-url)-->
 <!--[![Total Downloads](https://img.shields.io/packagist/dt/spatie/url.svg?style=flat-square)](https://packagist.org/packages/spatie/url)-->
 
+## Installation
+```
+composer require pjpawel/parse-url
+```
+
 ## Actual list of conversion
 *Comparison with parse_url()* ->
 [Conversions](../master/Conversions.md)
