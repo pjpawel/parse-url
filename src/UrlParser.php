@@ -71,7 +71,7 @@ class UrlParser
             if (str_starts_with($parsedUrl["scheme"], "http")) {
                 $url .= $parsedUrl["scheme"] . "://";
             } elseif (str_starts_with($parsedUrl["scheme"], "file")) {
-                $url .= "file:///";
+                $url .= (isset($parsedUrl['path'])) ? "file://" : "file:///";
             } else {
                 $url .= $parsedUrl["scheme"] . ":";
             }
