@@ -141,4 +141,13 @@ class UrlParserTest extends TestCase
         $createdUrl = UrlParser::createUrl($parsedUrl);
         $this->assertEquals($createdUrl, $urlRight);
     }
+
+    public function testCreateUrlOnlyWWW()
+    {
+        $url = 'www.malformed_url.com';
+        $urlRight = '//www.malformed_url.com';
+        $parsedUrl = UrlParser::parse($url);
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $url);
+    }
 }
