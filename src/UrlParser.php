@@ -17,7 +17,7 @@ class UrlParser
     {
         if (preg_match('/^http(s)?:\/\/|^\/\/|^\/|^mailto:|^tel:/', $url)) {
             return parse_url($url, $component);
-        } elseif (preg_match('/^file/', $url)) {
+        } elseif (str_starts_with($url, "file")) {
             return self::parseFile($url, $component);
         } elseif (preg_match('/^(\S)+?\./', $url)) {
             return parse_url("//" . $url, $component);
@@ -36,7 +36,7 @@ class UrlParser
      */
     private static function parseFile(string $url, int $component)
     {
-        if (preg_match('/^file:\/\/\//', $url)) {
+        if (str_starts_with($url, "file:///")) {
             return parse_url($url, $component);
         } elseif (preg_match('/^file:\/\/|^file:\/|^file:/', $url)) {
             return parse_url(self::correctFile($url), $component);
@@ -68,10 +68,10 @@ class UrlParser
         $url = "";
         $user = false;
         if (isset($parsedUrl["scheme"])) {
-            if (preg_match('/^http/', $parsedUrl["scheme"])) {
+            if (str_starts_with($parsedUrl["scheme"], "http")) {
                 $url .= $parsedUrl["scheme"] . "://";
-            } elseif (preg_match('/^file/', $parsedUrl["scheme"])) {
-                $url .= "file:///";
+            } elseif (str_starts_with($parsedUrl["scheme"], "file")) {
+                $url .= (isset($parsedUrl['path'])) ? "file://" : "file:///";
             } else {
                 $url .= $parsedUrl["scheme"] . ":";
             }

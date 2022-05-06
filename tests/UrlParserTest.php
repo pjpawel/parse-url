@@ -122,4 +122,32 @@ class UrlParserTest extends TestCase
         $this->assertEquals($createdUrl, $url);
     }
 
+    public function testCreateFileUrlExample()
+    {
+        $url = 'file:///var/log/';
+        $parsedUrl = [
+            "scheme" => "file",
+            "path" => "/var/log/",
+        ];
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $url);
+    }
+
+    public function testCreateFileUrlExampleMakeRightUrl()
+    {
+        $url = 'file:/var/log/';
+        $urlRight = 'file:///var/log/';
+        $parsedUrl = UrlParser::parse($url);
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $urlRight);
+    }
+
+    public function testCreateUrlOnlyWWW()
+    {
+        $url = 'www.malformed_url.com';
+        $urlRight = '//www.malformed_url.com';
+        $parsedUrl = UrlParser::parse($url);
+        $createdUrl = UrlParser::createUrl($parsedUrl);
+        $this->assertEquals($createdUrl, $url);
+    }
 }

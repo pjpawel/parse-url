@@ -20,5 +20,16 @@ $url = "www.malformed_url.com";
 
 $parsedUrl = Url::parse($url);
 var_dump($parsedUrl);
+/*
+array(1) {
+  ["host"]=>
+  string(21) "www.malformed_url.com"
+}
+ */
+
+echo Url::createUrl($parsedUrl)
+/*
+www.malformed_url.com
+ */
 ```
-Output array is the same as [parse_url()](https://www.php.net/manual/en/function.parse-url.php)
+Output array of `URL::parse()` is the same as [parse_url()](https://www.php.net/manual/en/function.parse-url.php)
