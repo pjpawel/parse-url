@@ -1,6 +1,6 @@
 <?php
 
-namespace tests;
+namespace Test;
 
 use PHPUnit\Framework\TestCase;
 use pjpawel\UrlParser;
@@ -149,5 +149,51 @@ class UrlParserTest extends TestCase
         $parsedUrl = UrlParser::parse($url);
         $createdUrl = UrlParser::createUrl($parsedUrl);
         $this->assertEquals($createdUrl, $url);
+    }
+
+    /*
+     * Test compare domains
+     */
+    public function testSameDomains()
+    {
+        $url1 = "www.abc.com/about/";
+        $url2 = "www.abc.com/company";
+        $same = UrlParser::sameDomain($url1, $url2);
+        $this->assertTrue($same);
+    }
+
+    public function testSameDomainsFalse()
+    {
+        $url1 = "www.abc.com/about/";
+        $url2 = "www.abcd.com/company";
+        $same = UrlParser::sameDomain($url1, $url2);
+        $this->assertFalse($same);
+    }
+
+    /*
+     * Test compare urls
+     */
+    public function testSameUrlsQuery()
+    {
+        $url1 = "www.abc.com/about/";
+        $url2 = "www.abc.com/about/?";
+        $same = UrlParser::sameUrl($url1, $url2);
+        $this->assertTrue($same);
+    }
+
+    public function testSameUrlsAnchor()
+    {
+        $url1 = "www.abc.com/about/";
+        $url2 = "www.abc.com/about/#";
+        $same = UrlParser::sameUrl($url1, $url2);
+        $this->assertTrue($same);
+    }
+
+    public function testSameUrlsQueryAndAnchor()
+    {
+        $url1 = "www.abc.com/about/";
+        $url2 = "www.abc.com/about/?#";
+        $same = UrlParser::sameUrl($url1, $url2);
+        $this->assertTrue($same);
     }
 }
