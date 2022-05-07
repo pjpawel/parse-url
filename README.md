@@ -19,11 +19,11 @@ composer require pjpawel/parse-url
 ```php
 <?php
 
-use pjpawel\Url;
+use pjpawel\UrlParser;
 
 $url = "www.malformed_url.com";
 
-$parsedUrl = Url::parse($url);
+$parsedUrl = UrlParser::parse($url);
 var_dump($parsedUrl);
 /*
 array(1) {
@@ -32,7 +32,7 @@ array(1) {
 }
  */
 
-echo Url::createUrl($parsedUrl)
+echo UrlParser::createUrl($parsedUrl)
 /*
 www.malformed_url.com
  */
