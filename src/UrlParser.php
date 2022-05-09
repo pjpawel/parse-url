@@ -101,4 +101,21 @@ class UrlParser
         }
         return $url;
     }
+
+    /**
+     * Check if 2 urls have the same domain
+     *
+     * @param string $url1
+     * @param string $url2
+     * @return bool
+     */
+    public static function sameDomain(string $url1, string $url2): bool
+    {
+        return (self::parse($url1, PHP_URL_HOST) == self::parse($url2, PHP_URL_HOST));
+    }
+
+    public static function sameUrl(string $url1, string $url2): bool
+    {
+        return self::createUrl(array_filter(self::parse($url1))) == self::createUrl(array_filter(self::parse($url2)));
+    }
 }
