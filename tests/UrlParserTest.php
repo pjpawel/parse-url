@@ -25,6 +25,7 @@ class UrlParserTest extends TestCase
         $url = UrlParser::parse('https://www.abc.pl/');
         $this->assertEquals('www.abc.pl', $url['host']);
     }
+    
     public function testParseUrlWithSchemeBackSlashes()
     {
         $url = UrlParser::parse('//www.abc.pl/');
@@ -73,6 +74,12 @@ class UrlParserTest extends TestCase
     {
         $url = UrlParser::parse('abc.com');
         $this->assertEquals('abc.com', $url['host']);
+    }
+
+    public function testParseUrlOnlyPath()
+    {
+        $url = UrlParser::parse('/only-path/to/article');
+        $this->assertEquals('/only-path/to/article', $url['path']);
     }
 
     /*
